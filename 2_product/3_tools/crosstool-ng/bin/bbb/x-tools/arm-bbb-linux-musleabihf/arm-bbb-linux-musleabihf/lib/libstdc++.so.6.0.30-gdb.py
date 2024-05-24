@@ -1,0 +1,1 @@
+../../arm-bbb-linux-musleabihf/sysroot/lib/libstdc++.so.6.0.30-gdb.py

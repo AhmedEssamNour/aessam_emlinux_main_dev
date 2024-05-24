@@ -1,19 +1,24 @@
 # Global path configurations:
-MAIN_DEV_PATH       := $(shell pwd)
+export MAIN_DEV_PATH       := $(shell pwd)
 
-DOC_PATH            := $(MAIN_DEV_PATH)/1_doc
-PRODUCT_PATH        := $(MAIN_DEV_PATH)/2_product
-TOOLS_PATH          := $(MAIN_DEV_PATH)/3_tools
+export DOC_PATH            := $(MAIN_DEV_PATH)/1_doc
+export PRODUCT_PATH        := $(MAIN_DEV_PATH)/2_product
+export TOOLS_PATH          := $(MAIN_DEV_PATH)/3_tools
 
-SOFTWARE_PATH       := $(PRODUCT_PATH)/1_software
-EXTERNAL_PATH       := $(PRODUCT_PATH)/2_external
-PRODUCT_TOOLS_PATH  := $(PRODUCT_PATH)/3_tools
+export SOFTWARE_PATH       := $(PRODUCT_PATH)/1_software
+export EXTERNAL_PATH       := $(PRODUCT_PATH)/2_external
+export PRODUCT_TOOLS_PATH  := $(PRODUCT_PATH)/3_tools
 
-CROSSTOOL-NG_BIN    := $(PRODUCT_TOOLS_PATH)/crosstool-ng/bin
-CROSSTOOL-NG_CFG    := $(PRODUCT_TOOLS_PATH)/crosstool-ng/config
-CROSSTOOL-NG_SOURCE := $(PRODUCT_TOOLS_PATH)/crosstool-ng/source
+export CROSSTOOL_NG_PATH        := $(PRODUCT_TOOLS_PATH)/crosstool-ng
+export CROSSTOOL_NG_BIN_PATH    := $(PRODUCT_TOOLS_PATH)/crosstool-ng/bin
+export CROSSTOOL_NG_CFG_PATH    := $(PRODUCT_TOOLS_PATH)/crosstool-ng/config
+export CROSSTOOL_NG_SOURCE_PATH := $(PRODUCT_TOOLS_PATH)/crosstool-ng/source
+
+
+# Board type configuration
+export BOARD_TYPE ?= bbb
 
 
 # "crosstool-NG" toolchain configurations:
-CROSSTOOL-NG_REPO   = https://github.com/crosstool-ng/crosstool-ng
-CROSSTOOL-NG_BRANCH = crosstool-ng-1.26.0
+export CROSSTOOL_NG_REPO   = https://github.com/crosstool-ng/crosstool-ng
+export CROSSTOOL_NG_BRANCH = crosstool-ng-1.26.0
