@@ -22,3 +22,7 @@ export BOARD_TYPE ?= bbb
 # "crosstool-NG" toolchain configurations:
 export CROSSTOOL_NG_REPO   = https://github.com/crosstool-ng/crosstool-ng
 export CROSSTOOL_NG_BRANCH = crosstool-ng-1.26.0
+
+
+# Updating the "PATH" environment variable with the required board compiler
+export PATH:=${PATH}:${CROSSTOOL_NG_BIN_PATH}/${BOARD_TYPE}/x-tools/arm-${BOARD_TYPE}-linux-musleabihf/bin
