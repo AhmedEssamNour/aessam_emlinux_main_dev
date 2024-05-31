@@ -55,14 +55,14 @@ init_u-boot:
 # Building the "U-Boot" binary for the given "BOARD TYPE"
 build_u-boot:
 	@echo
-	#@echo "[INFO] Moving the saved configuration for the \"$(BOARD_TYPE)\" board to the building folder .."
-	#@cp $(UBOOT_CFG_PATH)/$(BOARD_TYPE)/.config $(UBOOT_SOURCE_PATH)
-	#@echo "[INFO] Starting the \"menuconfig\" for configuration refinement .."
-	#@cd $(UBOOT_SOURCE_PATH) && $(MAKE) menuconfig
-	#@echo "[INFO] Saving back the new \".config\" .."
-	#@cp $(UBOOT_SOURCE_PATH)/.config $(UBOOT_CFG_PATH)/$(BOARD_TYPE)
-	#@echo "[INFO] Building the \"U-Boot\" for the \"$(BOARD_TYPE)\" board .."
-	#@cd $(UBOOT_SOURCE_PATH) && $(MAKE)
+	@echo "[INFO] Moving the saved configuration for the \"$(BOARD_TYPE)\" board to the building folder .."
+	@cp $(UBOOT_CFG_PATH)/$(BOARD_TYPE)/.config $(UBOOT_SOURCE_PATH)
+	@echo "[INFO] Starting the \"menuconfig\" for configuration refinement .."
+	@cd $(UBOOT_SOURCE_PATH) && $(MAKE) menuconfig
+	@echo "[INFO] Saving back the new \".config\" .."
+	@cp $(UBOOT_SOURCE_PATH)/.config $(UBOOT_CFG_PATH)/$(BOARD_TYPE)
+	@echo "[INFO] Building the \"U-Boot\" for the \"$(BOARD_TYPE)\" board .."
+	@cd $(UBOOT_SOURCE_PATH) && $(MAKE)
 	@echo "[INFO] Moving the output generated images to the \"/bin\" folder of the \"$(BOARD_TYPE)\" board .."
 	@cp $(UBOOT_SOURCE_PATH)/MLO $(UBOOT_BIN_PATH)/$(BOARD_TYPE)
 	@cp $(UBOOT_SOURCE_PATH)/u-boot.img $(UBOOT_BIN_PATH)/$(BOARD_TYPE)	
