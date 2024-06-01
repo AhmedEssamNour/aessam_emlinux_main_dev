@@ -65,4 +65,14 @@ build_u-boot:
 	@cd $(UBOOT_SOURCE_PATH) && $(MAKE)
 	@echo "[INFO] Moving the output generated images to the \"/bin\" folder of the \"$(BOARD_TYPE)\" board .."
 	@cp $(UBOOT_SOURCE_PATH)/MLO $(UBOOT_BIN_PATH)/$(BOARD_TYPE)
-	@cp $(UBOOT_SOURCE_PATH)/u-boot.img $(UBOOT_BIN_PATH)/$(BOARD_TYPE)	
+	@cp $(UBOOT_SOURCE_PATH)/u-boot.img $(UBOOT_BIN_PATH)/$(BOARD_TYPE)
+
+
+######################################################################################
+################################# "Kernel" Section ###################################
+######################################################################################	
+# Cloning and preparing the "kernel" building environment 
+init_kernel:
+	@echo
+	@echo "[INFO] Cloning the \"Kernel\" source code .."
+	@mkdir -p $(KERNEL_SOURCE_PATH)/$(KERNEL_REL) && cd $(KERNEL_SOURCE_PATH) && git clone --depth 1 $(KERNEL_REPO) -b $(KERNEL_BRANCH) $(KERNEL_REL)

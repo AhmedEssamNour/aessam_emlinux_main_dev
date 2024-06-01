@@ -21,6 +21,12 @@ export UBOOT_BIN_PATH    := $(UBOOT_PATH)/bin
 export UBOOT_CFG_PATH    := $(UBOOT_PATH)/config
 export UBOOT_SOURCE_PATH := $(UBOOT_PATH)/source
 
+export KERNEL_PATH          := $(EXTERNAL_SW_PATH)/kernel
+export KERNEL_BIN_PATH      := $(KERNEL_PATH)/bin
+export KERNEL_CFG_PATH      := $(KERNEL_PATH)/config
+export KERNEL_SOURCE_PATH   := $(KERNEL_PATH)/source
+export KERNEL_RT_PATCH_PATH := $(KERNEL_PATH)/rt-patch
+
 
 ######################################################################################
 ################################ Board Configurations ################################
@@ -47,3 +53,11 @@ export CROSSTOOL_NG_BRANCH = crosstool-ng-1.26.0
 ######################################################################################
 export UBOOT_REPO   = https://gitlab.denx.de/u-boot/u-boot
 export UBOOT_BRANCH = v2024.04
+
+
+######################################################################################
+############################## "kernel" Configurations ###############################
+######################################################################################
+export KERNEL_REPO   = https://github.com/torvalds/linux.git
+export KERNEL_BRANCH = v6.6
+export KERNEL_REL   ?= ${KERNEL_BRANCH}
