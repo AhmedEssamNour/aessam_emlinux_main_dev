@@ -27,21 +27,24 @@ export KERNEL_CFG_PATH      := $(KERNEL_PATH)/config
 export KERNEL_SOURCE_PATH   := $(KERNEL_PATH)/source
 export KERNEL_RT_PATCH_PATH := $(KERNEL_PATH)/rt-patch
 
-export TOOLS_SCRIPTS_PATH        := $(TOOLS_PATH)/scripts
-export TOOLS_SCRIPTS_SDCARD_PATH := $(TOOLS_SCRIPTS_PATH)/sdcard
+export TOOLS_SCRIPTS_PATH         := $(TOOLS_PATH)/scripts
+export TOOLS_SCRIPTS_SDCARD_PATH  := $(TOOLS_SCRIPTS_PATH)/sdcard
+export TOOLS_SCRIPTS_INSTALL_PATH := $(TOOLS_SCRIPTS_PATH)/install
 
 
 ######################################################################################
 ################################ Board Configurations ################################
 ######################################################################################
-export BOARD_TYPE ?= bbb
+export board   ?= bbb
+export bin     ?= uboot
+export out_dev ?= /dev/sdb
 
 
 ######################################################################################
 ############################## Compiler Configurations ###############################
 ######################################################################################
-export PATH:=${PATH}:${CROSSTOOL_NG_BIN_PATH}/${BOARD_TYPE}/x-tools/arm-${BOARD_TYPE}-linux-musleabihf/bin
-export CROSS_COMPILE=arm-${BOARD_TYPE}-linux-
+export PATH:=${PATH}:${CROSSTOOL_NG_BIN_PATH}/${board}/x-tools/arm-${board}-linux-musleabihf/bin
+export CROSS_COMPILE=arm-${board}-linux-
 
 
 ######################################################################################

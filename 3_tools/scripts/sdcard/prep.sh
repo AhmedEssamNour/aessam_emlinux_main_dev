@@ -17,7 +17,7 @@ ls ${SDCARD_DEV_NAME}
 
 if [ $? -ne 0 ]; then
     echo -e "${RED}[INFO] Device name provided does not exist, script will be terminated!${RESET_COLOR}"
-    exit
+    exit 1
 else
     echo -e "[INFO] Device name provided exist .."
 fi
@@ -54,6 +54,10 @@ done
 echo -e "[INFO] All partitions of $SDCARD_DEV_NAME have been unmounted .."
 sudo sync
 
+# Delete the partition table
+sudo dd if=/dev/zero of=${SDCARD_DEV_NAME} bs=1M count=16
+sudo sync
+
 # Start parted in non-interactive mode and partition the device
 sudo parted -s ${SDCARD_DEV_NAME} mklabel msdos                     # Create a new MS-DOS partition table
 sudo parted -s ${SDCARD_DEV_NAME} mkpart primary fat32 1MiB 129MiB  # Create the first partition: primary, FAT32, 128MB starting at 1MiB
@@ -67,3 +71,4 @@ sudo mkfs.ext4 ${SDCARD_DEV_NAME}2 -L ROOTFS                        # Format sec
 sudo sync
 
 sudo parted -s ${SDCARD_DEV_NAME} print                             # Print the partition table for verification
+

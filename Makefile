@@ -46,13 +46,13 @@ init_crosstool-ng:
 # Building the "Crosstool-NG" compiler for the given "BOARD TYPE"
 build_crosstool-ng:
 	@echo
-	@echo "[INFO] Moving the saved configuration for the \"$(BOARD_TYPE)\" board to the building folder .."
-	@cp $(CROSSTOOL_NG_CFG_PATH)/$(BOARD_TYPE)/.config $(CROSSTOOL_NG_SOURCE_PATH)
+	@echo "[INFO] Moving the saved configuration for the \"$(board)\" board to the building folder .."
+	@cp $(CROSSTOOL_NG_CFG_PATH)/$(board)/.config $(CROSSTOOL_NG_SOURCE_PATH)
 	@echo "[INFO] Starting the \"menuconfig\" for configuration refinement .."
 	@cd $(CROSSTOOL_NG_SOURCE_PATH) && ./ct-ng menuconfig
 	@echo "[INFO] Saving back the new \".config\" .."
-	@cp $(CROSSTOOL_NG_SOURCE_PATH)/.config $(CROSSTOOL_NG_CFG_PATH)/$(BOARD_TYPE)
-	@echo "[INFO] Building the \"Crosstool-NG\" compiler for the \"$(BOARD_TYPE)\" board .."
+	@cp $(CROSSTOOL_NG_SOURCE_PATH)/.config $(CROSSTOOL_NG_CFG_PATH)/$(board)
+	@echo "[INFO] Building the \"Crosstool-NG\" compiler for the \"$(board)\" board .."
 	@cd $(CROSSTOOL_NG_SOURCE_PATH) && ./ct-ng build
 
 
@@ -68,17 +68,17 @@ init_u-boot:
 # Building the "U-Boot" binary for the given "BOARD TYPE"
 build_u-boot:
 	@echo
-	@echo "[INFO] Moving the saved configuration for the \"$(BOARD_TYPE)\" board to the building folder .."
-	@cp $(UBOOT_CFG_PATH)/$(BOARD_TYPE)/.config $(UBOOT_SOURCE_PATH)
+	@echo "[INFO] Moving the saved configuration for the \"$(board)\" board to the building folder .."
+	@cp $(UBOOT_CFG_PATH)/$(board)/.config $(UBOOT_SOURCE_PATH)
 	@echo "[INFO] Starting the \"menuconfig\" for configuration refinement .."
 	@cd $(UBOOT_SOURCE_PATH) && $(MAKE) menuconfig
 	@echo "[INFO] Saving back the new \".config\" .."
-	@cp $(UBOOT_SOURCE_PATH)/.config $(UBOOT_CFG_PATH)/$(BOARD_TYPE)
-	@echo "[INFO] Building the \"U-Boot\" for the \"$(BOARD_TYPE)\" board .."
+	@cp $(UBOOT_SOURCE_PATH)/.config $(UBOOT_CFG_PATH)/$(board)
+	@echo "[INFO] Building the \"U-Boot\" for the \"$(board)\" board .."
 	@cd $(UBOOT_SOURCE_PATH) && $(MAKE)
-	@echo "[INFO] Moving the output generated images to the \"/bin\" folder of the \"$(BOARD_TYPE)\" board .."
-	@cp $(UBOOT_SOURCE_PATH)/MLO $(UBOOT_BIN_PATH)/$(BOARD_TYPE)
-	@cp $(UBOOT_SOURCE_PATH)/u-boot.img $(UBOOT_BIN_PATH)/$(BOARD_TYPE)
+	@echo "[INFO] Moving the output generated images to the \"/bin\" folder of the \"$(board)\" board .."
+	@cp $(UBOOT_SOURCE_PATH)/MLO $(UBOOT_BIN_PATH)/$(board)
+	@cp $(UBOOT_SOURCE_PATH)/u-boot.img $(UBOOT_BIN_PATH)/$(board)
 
 
 ######################################################################################
@@ -89,3 +89,15 @@ init_kernel:
 	@echo
 	@echo "[INFO] Cloning the \"Kernel\" source code .."
 	@mkdir -p $(KERNEL_SOURCE_PATH)/$(KERNEL_REL) && cd $(KERNEL_SOURCE_PATH) && git clone --depth 1 $(KERNEL_REPO) -b $(KERNEL_BRANCH) $(KERNEL_REL)
+
+
+######################################################################################
+########################### Software Installation Section ############################
+######################################################################################
+# Installing the software (uboot, kernel, rootfs)
+install:
+	@if [ "$(bin)" = "uboot" ]; then \
+		cd $(TOOLS_SCRIPTS_INSTALL_PATH) && ./install_uboot.sh $(board) $(UBOOT_BIN_PATH) $(out_dev) \
+	else \
+		echo "Argument is not correct"; \
+	fi
