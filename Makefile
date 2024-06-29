@@ -9,11 +9,24 @@ all:
 # Initializing the environment (i.e. install all required packages, .. etc.)
 init_env:
 	@echo
-	@echo "[INFO] Installing all required packages for \"Crosstool-ng\" .."
+	@echo "[INFO] Installing all required packages for the \"Crosstool-ng\" .."
 	@sudo apt install build-essential git autoconf bison flex texinfo help2man gawk libtool-bin libncurses5-dev unzip
 	@echo
-	@echo "[INFO] Installing all required packages for \"U-BOOT\" .."
+	@echo "[INFO] Installing all required packages for the \"U-BOOT\" .."
 	@sudo apt install libssl-dev device-tree-compiler swig python3-distutils python3-dev python3-setuptools
+	@echo
+	@echo "[INFO] Installing all required packages for the \"SD. Card Preparations\" .."
+	@sudo apt install parted
+
+
+######################################################################################
+################################ "SD. Card" Section ##################################
+######################################################################################	
+# Clean, format and create the partitions of the "SD. Card"
+init_sd-card:
+	@echo
+	@echo "[INFO] Clean, format and create the partitions of the \"SD. Card\" .."
+	@cd $(TOOLS_SCRIPTS_SDCARD_PATH) && sudo ./prep.sh
 
 
 ######################################################################################
