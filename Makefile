@@ -26,7 +26,7 @@ init_env:
 init_sd-card:
 	@echo
 	@echo "[INFO] Clean, format and create the partitions of the \"SD. Card\" .."
-	@cd $(TOOLS_SCRIPTS_SDCARD_PATH) && sudo ./prep.sh
+	@cd $(TOOLS_SCRIPTS_SDCARD_PATH) && sudo ./sdcard_prep.sh
 
 
 ######################################################################################
@@ -89,6 +89,17 @@ init_kernel:
 	@echo
 	@echo "[INFO] Cloning the \"Kernel\" source code .."
 	@mkdir -p $(KERNEL_SOURCE_PATH)/$(KERNEL_REL) && cd $(KERNEL_SOURCE_PATH) && git clone --depth 1 $(KERNEL_REPO) -b $(KERNEL_BRANCH) $(KERNEL_REL)
+
+# Building the kernel for the given "BOARD TYPE"
+build_kernel:
+	@echo
+	@echo "[INFO] Building the \"Kernel\" source code .."
+ifeq ($(menuconfig), 0)
+    @cd $(KERNEL_SOURCE_PATH)/$(KERNEL_REL) && $(MAKE) -j32
+else
+	@cd $(KERNEL_SOURCE_PATH)/$(KERNEL_REL) && $(MAKE) menuconfig -j32
+	@cd $(KERNEL_SOURCE_PATH)/$(KERNEL_REL) && $(MAKE) -j32
+endif
 
 
 ######################################################################################

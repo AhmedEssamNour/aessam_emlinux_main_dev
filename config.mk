@@ -33,11 +33,12 @@ export TOOLS_SCRIPTS_INSTALL_PATH := $(TOOLS_SCRIPTS_PATH)/install
 
 
 ######################################################################################
-################################ Board Configurations ################################
+################################### Input Variables ##################################
 ######################################################################################
-export board   ?= bbb
-export bin     ?= uboot
-export out_dev ?= /dev/sdb
+export board      ?= bbb
+export bin        ?= uboot
+export out_dev    ?= /dev/sdb
+export menuconfig ?= 0
 
 
 ######################################################################################
@@ -45,6 +46,9 @@ export out_dev ?= /dev/sdb
 ######################################################################################
 export PATH:=${PATH}:${CROSSTOOL_NG_BIN_PATH}/${board}/x-tools/arm-${board}-linux-musleabihf/bin
 export CROSS_COMPILE=arm-${board}-linux-
+ifeq ($(board), bbb)
+    ARCH := arm
+endif
 
 
 ######################################################################################
