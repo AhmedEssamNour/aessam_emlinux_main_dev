@@ -75,9 +75,9 @@ build_u-boot:
 	@echo "[INFO] Saving back the new \".config\" .."
 	@cp $(UBOOT_SOURCE_PATH)/.config $(UBOOT_CFG_PATH)/$(board)
 	@echo "[INFO] Building the \"U-Boot\" for the \"$(board)\" board .."
-	@if [ "$(board)" = "bbb" ]; then \
-		@cd $(UBOOT_SOURCE_PATH) && $(MAKE) DEVICE_TREE=am335x-boneblack \
-	fi
+ifeq ($(board), bbb)
+	@cd $(UBOOT_SOURCE_PATH) && $(MAKE) DEVICE_TREE=am335x-boneblack
+endif
 	@echo "[INFO] Moving the output generated images to the \"/bin\" folder of the \"$(board)\" board .."
 	@cp $(UBOOT_SOURCE_PATH)/MLO $(UBOOT_BIN_PATH)/$(board)
 	@cp $(UBOOT_SOURCE_PATH)/u-boot.img $(UBOOT_BIN_PATH)/$(board)
