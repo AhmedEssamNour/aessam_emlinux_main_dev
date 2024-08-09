@@ -39,6 +39,7 @@ export board      ?= bbb
 export bin        ?= uboot
 export out_dev    ?= /dev/sdb
 export menuconfig ?= 0
+export rt         ?= 0
 
 
 ######################################################################################

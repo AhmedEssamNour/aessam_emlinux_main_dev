@@ -75,7 +75,9 @@ build_u-boot:
 	@echo "[INFO] Saving back the new \".config\" .."
 	@cp $(UBOOT_SOURCE_PATH)/.config $(UBOOT_CFG_PATH)/$(board)
 	@echo "[INFO] Building the \"U-Boot\" for the \"$(board)\" board .."
-	@cd $(UBOOT_SOURCE_PATH) && $(MAKE)
+	@if [ "$(board)" = "bbb" ]; then \
+		@cd $(UBOOT_SOURCE_PATH) && $(MAKE) DEVICE_TREE=am335x-boneblack \
+	fi
 	@echo "[INFO] Moving the output generated images to the \"/bin\" folder of the \"$(board)\" board .."
 	@cp $(UBOOT_SOURCE_PATH)/MLO $(UBOOT_BIN_PATH)/$(board)
 	@cp $(UBOOT_SOURCE_PATH)/u-boot.img $(UBOOT_BIN_PATH)/$(board)
@@ -95,11 +97,17 @@ build_kernel:
 	@echo
 	@echo "[INFO] Building the \"Kernel\" source code .."
 ifeq ($(menuconfig), 0)
-    @cd $(KERNEL_SOURCE_PATH)/$(KERNEL_REL) && $(MAKE) -j32
+	@cd $(KERNEL_SOURCE_PATH)/$(KERNEL_REL) && $(MAKE) ARCH=$(ARCH) multi_v7_defconfig -j16
 else
-	@cd $(KERNEL_SOURCE_PATH)/$(KERNEL_REL) && $(MAKE) menuconfig -j32
-	@cd $(KERNEL_SOURCE_PATH)/$(KERNEL_REL) && $(MAKE) -j32
+	@cd $(KERNEL_SOURCE_PATH)/$(KERNEL_REL) && $(MAKE) ARCH=$(ARCH) multi_v7_defconfig -j16
+	@cd $(KERNEL_SOURCE_PATH)/$(KERNEL_REL) && $(MAKE) ARCH=$(ARCH) menuconfig -j16
+	@cd $(KERNEL_SOURCE_PATH)/$(KERNEL_REL) && $(MAKE) ARCH=$(ARCH) -j16
 endif
+
+build_dtb:
+	@echo
+	@echo "[INFO] Building the \"Kernel\" source code .."
+	@cd $(KERNEL_SOURCE_PATH)/$(KERNEL_REL) && $(MAKE) ARCH=$(ARCH) dtbs -j16
 
 
 ######################################################################################
